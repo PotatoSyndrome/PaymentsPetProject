@@ -9,21 +9,23 @@ import java.util.List;
 
 public class PaymentDAO {
 
-    private GeneralMapper<Payment> mapper;
+    private GeneralDAO<Payment> mapper;
 
     public PaymentDAO() {
-        mapper = new GeneralMapper<>(new PaymentMapper());
+        mapper = new GeneralDAO<>(new PaymentMapper());
     }
 
     public List<Payment> getByFromAccount(Account account) throws SQLException {
-        return mapper.mapAll(Queries.GET_PAYMENTS_BY_FROM_ACCOUNT, Long.toString(account.getId()));
+        return mapper.mapAll(new PreparedSqlQuery(
+                Queries.GET_PAYMENTS_BY_FROM_ACCOUNT, Long.toString(account.getId())));
     }
 
     public List<Payment> getByDestinationAccount(Account account) throws SQLException {
-        return mapper.mapAll(Queries.GET_PAYMENTS_BY_TO_ACCOUNT, Long.toString(account.getId()));
+        return mapper.mapAll(new PreparedSqlQuery(
+                Queries.GET_PAYMENTS_BY_TO_ACCOUNT, Long.toString(account.getId())));
     }
 
-    private static class PaymentMapper implements GeneralMapper.Mapper<Payment> {
+    private static class PaymentMapper implements EntityMapper<Payment> {
 
         @Override
         public Payment mapObject(ResultSet resultSet) throws SQLException {

@@ -6,17 +6,24 @@ import java.sql.*;
 
 public class UserDAO {
 
-    private GeneralMapper<User> mapper;
+    private GeneralDAO<User> mapper;
 
     public UserDAO() {
-        mapper = new GeneralMapper<>(new UserMapper());
+        mapper = new GeneralDAO<>(new UserMapper());
     }
 
     public User getByName(String name) throws SQLException {
-        return mapper.mapOne(Queries.GET_USER_BY_NAME, name);
+        return mapper.mapOne(new PreparedSqlQuery(
+                Queries.GET_USER_BY_NAME, name));
     }
 
-    private static class UserMapper implements GeneralMapper.Mapper<User> {
+    public void addUser(User user) throws SQLException {
+        mapper.commitAll(new PreparedSqlQuery(
+                Queries.ADD_NEW_USER, user.getLogin(), user.getPassword(),
+                user.isBlocked() ? "1" : "0"));
+    }
+
+    private static class UserMapper implements EntityMapper<User> {
 
         @Override
         public User mapObject(ResultSet resultSet) throws SQLException {

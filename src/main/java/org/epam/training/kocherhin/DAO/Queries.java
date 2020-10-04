@@ -21,4 +21,6 @@ public final class Queries {
     public static final String GET_TEMPLATES_FOR_USER = "SELECT * FROM mydb.templates\n" +
             "WHERE from_account IN (\n" +
             "SELECT id from accounts WHERE user_id = ?)";
+
+    public static final String ADD_NEW_USER = "INSERT INTO users(login, password, blocked) VALUES (?, ?, ?)";
 }

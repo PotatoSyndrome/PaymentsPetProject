@@ -9,17 +9,18 @@ import java.util.List;
 
 public class TemplateDAO {
 
-    GeneralMapper<Template> mapper;
+    GeneralDAO<Template> mapper;
 
     public TemplateDAO() {
-        mapper = new GeneralMapper<>(new TemplateMapper());
+        mapper = new GeneralDAO<>(new TemplateMapper());
     }
 
     public List<Template> getTemplatesForUser(User user) throws SQLException {
-        return mapper.mapAll(Queries.GET_TEMPLATES_FOR_USER,Long.toString(user.getId()));
+        return mapper.mapAll(new PreparedSqlQuery(
+                Queries.GET_TEMPLATES_FOR_USER,Long.toString(user.getId())));
     }
 
-    private static class TemplateMapper implements GeneralMapper.Mapper<Template> {
+    private static class TemplateMapper implements EntityMapper<Template> {
 
         @Override
         public Template mapObject(ResultSet resultSet) throws SQLException {

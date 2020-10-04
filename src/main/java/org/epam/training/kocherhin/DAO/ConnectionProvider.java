@@ -2,8 +2,11 @@ package org.epam.training.kocherhin.DAO;
 
 import com.mysql.cj.jdbc.MysqlConnectionPoolDataSource;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -11,9 +14,11 @@ import java.util.Properties;
 public class ConnectionProvider {
 
     private static ConnectionProvider instance;
+    private static String absolutePath;
 
     static {
         instance = new ConnectionProvider();
+        absolutePath = instance.getPath();
     }
 
     public static ConnectionProvider getInstance() {
@@ -36,33 +41,12 @@ public class ConnectionProvider {
         return ds.getConnection();
     }
 
-    public void commitAndClose(Connection con) {
-        try {
-            con.commit();
-            con.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
 
-    /**
-     * Rollbacks and close the given connection.
-     *
-     * @param con
-     *            Connection to be rollbacked and closed.
-     */
-    public void rollbackAndClose(Connection con) {
-        try {
-            con.rollback();
-            con.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
 
     private String getFromProperties(String key) throws IOException {
         Properties property = new Properties();
-        try(FileInputStream fis = new FileInputStream("app.properties")) {
+        String path = absolutePath + "/app.properties";
+        try(FileInputStream fis = new FileInputStream(path)) {
             property.load(fis);
             return property.getProperty("connection." + key);
         } catch (IOException e) {
@@ -71,4 +55,21 @@ public class ConnectionProvider {
     }
 
 
+    private String getPath() { // костиль для підгружання пропертіс мавеном автоматично і все працювало без
+                                // додаткових танців з бубном при переході від ідеї до томкату
+                                // додатково використовується налаштування плагіну resources у pom.xml
+
+        String path = this.getClass().getClassLoader().getResource("").getPath();
+        String fullPath;
+        try {
+            fullPath = URLDecoder.decode(path, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            fullPath = path;
+        }
+        String[] pathArr = fullPath.split("/(?:WEB-INF|target)/classes/");
+        fullPath = pathArr[0];
+
+        return fullPath;
+
+    }
 }

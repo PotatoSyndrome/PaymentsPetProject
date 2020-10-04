@@ -7,19 +7,18 @@ import java.sql.SQLException;
 
 public class AdminDAO {
 
-    GeneralMapper<Admin> mapper;
+    GeneralDAO<Admin> mapper;
 
     public AdminDAO() {
-        mapper = new GeneralMapper<>(new AdminMapper());
+        mapper = new GeneralDAO<>(new AdminMapper());
     }
 
     public Admin getAdminByLogin(String name) throws SQLException {
-        return mapper.mapOne(Queries.GET_ADMIN_BY_LOGIN, name);
+        return mapper.mapOne(new PreparedSqlQuery(
+                Queries.GET_ADMIN_BY_LOGIN, name));
     }
 
-    private static class AdminMapper implements GeneralMapper.Mapper<Admin> {
-
-
+    private static class AdminMapper implements EntityMapper<Admin> {
 
         @Override
         public Admin mapObject(ResultSet resultSet) throws SQLException {
