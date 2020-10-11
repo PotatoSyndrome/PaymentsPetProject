@@ -11,6 +11,8 @@ public class CommandContainer {
         commands = new HashMap<>();
 
         commands.put("add-user", new AddUserCommand());
+        commands.put("sign-in", new SignInCommand());
+        commands.put("exit", new ExitCommand());
         // TODO put commands
     }
 

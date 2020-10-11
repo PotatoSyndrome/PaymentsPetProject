@@ -29,7 +29,7 @@ public class Main {
         AdminDAO adminDAO = new AdminDAO();
         TemplateDAO templateDAO = new TemplateDAO();
         try {
-            System.out.println(userDAO.getByName("WORKS"));
+            System.out.println(userDAO.getByName("login1@mail"));
 //            System.out.println(accountDAO.getByUser(userDAO.getByName("WORKS").getId()));
 //            System.out.println(paymentDAO.getByFromAccount(accountDAO.getByUser(userDAO.getByName("WORKS").getId()).get(0)));
 //            System.out.println(paymentDAO.getByDestinationAccount(accountDAO.getByUser(userDAO.getByName("WORKS").getId()).get(1)));
