@@ -38,7 +38,7 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commandName = request.getParameter("command");
-
+        System.out.println(commandName);
         Command command = commands.getCommand(commandName);
 
         String forward;
@@ -47,7 +47,7 @@ public class Controller extends HttpServlet {
         } else {
             forward = "error.html"; // TODO forward to error page
         }
-
+        System.out.println(forward);
         response.sendRedirect(forward);
     }
 }

@@ -3,9 +3,9 @@ package org.epam.training.kocherhin.DAO;
 public class PreparedSqlQuery {
 
     private String query;
-    private String[] parameters;
+    private Object[] parameters;
 
-    public PreparedSqlQuery(String query, String... parameters) {
+    public PreparedSqlQuery(String query, Object... parameters) {
         this.query = query;
         this.parameters = parameters;
     }
@@ -14,7 +14,7 @@ public class PreparedSqlQuery {
         return query;
     }
 
-    public String[] getParameters() {
+    public Object[] getParameters() {
         return parameters;
     }
 }

@@ -38,8 +38,8 @@ public class Payment extends Entity {
         this.amount = amount;
     }
 
-    public Status getStatus() {
-        return status;
+    public String getStatus() {
+        return status.toString();
     }
 
     public void setStatus(Status status) {

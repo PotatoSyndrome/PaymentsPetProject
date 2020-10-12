@@ -20,7 +20,7 @@ public class GeneralDAO<T> {
         try(Connection connection = ConnectionProvider.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query.getQuery())) {
             for (int i = 0; i < query.getParameters().length; ++i) {
-                preparedStatement.setString(i + 1, escapeForLike(query.getParameters()[i]));
+                preparedStatement.setObject(i + 1, escapeForLike(query.getParameters()[i]));
             }
             System.out.println(preparedStatement.toString());
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -37,9 +37,9 @@ public class GeneralDAO<T> {
         try(Connection connection = ConnectionProvider.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(query.getQuery())) {
             for (int i = 0; i < query.getParameters().length; ++i) {
-                statement.setString(i + 1, escapeForLike(query.getParameters()[i]));
+                statement.setObject(i + 1, escapeForLike(query.getParameters()[i]));
             }
-
+            System.out.println(statement.toString());
             try(ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     toReturn = mapper.mapObject(resultSet);
@@ -55,8 +55,9 @@ public class GeneralDAO<T> {
             for (PreparedSqlQuery query: queries) {
                 try(PreparedStatement statement = connection.prepareStatement(query.getQuery())) {
                     for (int i = 0; i < query.getParameters().length; ++i) {
-                        statement.setString(i + 1, escapeForLike(query.getParameters()[i]));
+                        statement.setObject(i + 1, escapeForLike(query.getParameters()[i]));
                     }
+                    System.out.println(statement.toString());
                     statement.executeUpdate();
                 }
             }
@@ -64,8 +65,11 @@ public class GeneralDAO<T> {
         }
     }
 
-    public static String escapeForLike(String param) {
-        return param.replace("!", "!!").replace("%", "!%").replace("_", "!_").replace("[", "![");
+    public static Object escapeForLike(Object param) {
+        if (param instanceof String) {
+            return ((String) param).replace("!", "!!").replace("%", "!%").
+                    replace("_", "!_").replace("[", "![");
+        }
+        return param;
     }
-
 }

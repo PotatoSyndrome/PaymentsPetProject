@@ -19,6 +19,16 @@ public class AccountDAO {
                 Queries.GET_ACCOUNTS_BY_USER, Long.toString(user.getId())));
     }
 
+    public List<Account> getByUserWithPagination(User user, int page, int accountsOnPage) throws SQLException {
+        return mapper.mapAll(new PreparedSqlQuery(
+                Queries.GET_ACCOUNTS_BY_USER_WITH_PAGINATION, Long.toString(user.getId()),
+                (page - 1) * accountsOnPage, accountsOnPage));
+    }
+
+    public int getNumberOfAccounts(User user) throws SQLException {
+        return getByUser(user).size();
+    }
+
     private static class AccountMapper implements EntityMapper<Account> {
 
         @Override

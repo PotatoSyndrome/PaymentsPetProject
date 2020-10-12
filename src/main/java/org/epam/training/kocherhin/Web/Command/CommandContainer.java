@@ -13,6 +13,9 @@ public class CommandContainer {
         commands.put("add-user", new AddUserCommand());
         commands.put("sign-in", new SignInCommand());
         commands.put("exit", new ExitCommand());
+        commands.put("usersAccounts", new UserAccountsCommand());
+        commands.put("usersPayments", new UsersPaymentsCommand());
+        commands.put("usersTemplates", new UsersTemplatesCommand());
         // TODO put commands
     }
 

@@ -20,6 +20,18 @@ public class TemplateDAO {
                 Queries.GET_TEMPLATES_FOR_USER,Long.toString(user.getId())));
     }
 
+    public List<Template> getTemplatesForUserWithPagination(User user, int page, int accountsOnPage) throws SQLException {
+        return mapper.mapAll(new PreparedSqlQuery(
+            Queries.GET_TEMPLATES_FOR_USER_WITH_PAGINATION,
+                user.getId(),
+                (page - 1) * accountsOnPage,
+                accountsOnPage));
+    }
+
+    public int getNumberOfTemplates(User user) throws SQLException {
+        return getTemplatesForUser(user).size();
+    }
+
     private static class TemplateMapper implements EntityMapper<Template> {
 
         @Override

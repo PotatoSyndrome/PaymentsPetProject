@@ -9,11 +9,25 @@ public final class Queries {
     public static final String GET_ACCOUNTS_BY_USER = "SELECT * FROM accounts\n" +
             "WHERE user_id = ?";
 
+    public static final String GET_ACCOUNTS_BY_USER_WITH_PAGINATION = "SELECT * FROM accounts\n" +
+            "WHERE user_id = ? LIMIT ?, ?";
+
+    public static final String GET_NUMBER_OF_ACCOUNTS = "SELECT COUNT(*) AS number FROM accounts WHERE user_id = ?";
+
     public static final String GET_PAYMENTS_BY_FROM_ACCOUNT = "SELECT * FROM payments\n" +
             "WHERE from_account = ?";
 
     public static final String GET_PAYMENTS_BY_TO_ACCOUNT = "SELECT * FROM payments\n" +
             "WHERE to_account = ?";
+
+    public static final String GET_PAYMENTS_BY_FROM_USER = "SELECT * FROM mydb.payments\n" +
+            "WHERE from_account IN\n" +
+            "(SELECT id FROM accounts WHERE user_id = ?)";
+
+    public static final String GET_PAYMENTS_BY_FROM_USER_WITH_PAGINATION = "SELECT * FROM mydb.payments\n" +
+            "WHERE from_account IN\n" +
+            "(SELECT id FROM accounts WHERE user_id = ?)" +
+            " LIMIT ?, ?";
 
     public static final String GET_ADMIN_BY_LOGIN = "SELECT * FROM mydb.admins\n" +
             "WHERE login = ?";
@@ -21,6 +35,11 @@ public final class Queries {
     public static final String GET_TEMPLATES_FOR_USER = "SELECT * FROM mydb.templates\n" +
             "WHERE from_account IN (\n" +
             "SELECT id from accounts WHERE user_id = ?)";
+
+    public static final String GET_TEMPLATES_FOR_USER_WITH_PAGINATION = "SELECT * FROM mydb.templates\n" +
+            "WHERE from_account IN (\n" +
+            "SELECT id from accounts WHERE user_id = ?)\n" +
+            "LIMIT ?, ?";
 
     public static final String ADD_NEW_USER = "INSERT INTO users(login, password, blocked) VALUES (?, ?, ?)";
 }

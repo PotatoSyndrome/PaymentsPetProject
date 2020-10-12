@@ -2,6 +2,7 @@ package org.epam.training.kocherhin.DAO;
 
 import org.epam.training.kocherhin.Entity.Account;
 import org.epam.training.kocherhin.Entity.Payment;
+import org.epam.training.kocherhin.Entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,12 +18,28 @@ public class PaymentDAO {
 
     public List<Payment> getByFromAccount(Account account) throws SQLException {
         return mapper.mapAll(new PreparedSqlQuery(
-                Queries.GET_PAYMENTS_BY_FROM_ACCOUNT, Long.toString(account.getId())));
+                Queries.GET_PAYMENTS_BY_FROM_ACCOUNT,
+                Long.toString(account.getId())));
     }
 
     public List<Payment> getByDestinationAccount(Account account) throws SQLException {
         return mapper.mapAll(new PreparedSqlQuery(
-                Queries.GET_PAYMENTS_BY_TO_ACCOUNT, Long.toString(account.getId())));
+                Queries.GET_PAYMENTS_BY_TO_ACCOUNT,
+                Long.toString(account.getId())));
+    }
+
+    public List<Payment> getByFromUserWithPagination(User user, int page, int accountsOnPage) throws SQLException {
+        return mapper.mapAll(new PreparedSqlQuery(
+                Queries.GET_PAYMENTS_BY_FROM_USER_WITH_PAGINATION,
+                user.getId(),
+                (page - 1) * accountsOnPage,
+                accountsOnPage));
+    }
+
+    public int getNumberOfPayments(User user) throws SQLException {
+        return mapper.mapAll(new PreparedSqlQuery(
+                Queries.GET_PAYMENTS_BY_FROM_USER, user.getId()
+        )).size();
     }
 
     private static class PaymentMapper implements EntityMapper<Payment> {

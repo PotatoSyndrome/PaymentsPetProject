@@ -28,6 +28,7 @@ public class Main {
         PaymentDAO paymentDAO = new PaymentDAO();
         AdminDAO adminDAO = new AdminDAO();
         TemplateDAO templateDAO = new TemplateDAO();
+
         try {
             System.out.println(userDAO.getByName("login1@mail"));
 //            System.out.println(accountDAO.getByUser(userDAO.getByName("WORKS").getId()));
