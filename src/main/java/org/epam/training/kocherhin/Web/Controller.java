@@ -23,13 +23,15 @@ public class Controller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commandName = request.getParameter("command");
-
+        System.out.println(commandName);
         Command command = commands.getCommand(commandName);
         String forward;
         if (command != null) {
             forward = command.processGet(request, response);
         } else {
-            forward = "error.html"; // TODO forward to error page
+            request.getSession().setAttribute("message", "Oops! Can`t find such command!"
+                    + request.getParameter("command"));
+            forward = "message.jsp";
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
         dispatcher.forward(request, response);
@@ -38,6 +40,7 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String commandName = request.getParameter("command");
+
         System.out.println(commandName);
         Command command = commands.getCommand(commandName);
 
@@ -45,9 +48,10 @@ public class Controller extends HttpServlet {
         if (command != null) {
             forward = command.processPost(request, response);
         } else {
-            forward = "error.html"; // TODO forward to error page
+            request.getSession().setAttribute("message", "Oops! Can`t find such command!"
+                    + request.getParameter("command"));
+            forward = "message.jsp";
         }
-        System.out.println(forward);
         response.sendRedirect(forward);
     }
 }

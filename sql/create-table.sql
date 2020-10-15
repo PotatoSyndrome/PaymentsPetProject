@@ -121,6 +121,30 @@ CREATE TABLE IF NOT EXISTS `mydb`.`templates` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `mydb`.`unblock_request`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`unblock_request` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`unblock_request` (
+  `accounts_id` INT NOT NULL,
+  `changed_by` INT NULL,
+  `considered` TINYINT NULL,
+  INDEX `fk_payments_has_admins_admins1_idx` (`changed_by` ASC) VISIBLE,
+  PRIMARY KEY (`accounts_id`),
+  CONSTRAINT `fk_payments_has_admins_admins1`
+    FOREIGN KEY (`changed_by`)
+    REFERENCES `mydb`.`admins` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_unblock_request_accounts1`
+    FOREIGN KEY (`accounts_id`)
+    REFERENCES `mydb`.`accounts` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
@@ -130,8 +154,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`users` (`login`, `password`, `blocked`) VALUES ('login1@mail', 'Password1', 0);
-INSERT INTO `mydb`.`users` (`login`, `password`, `blocked`) VALUES ('login2@mail', 'password2', 0);
+INSERT INTO `mydb`.`users` (`id`, `login`, `password`, `blocked`) VALUES (DEFAULT, 'login1@mail', 'Password1', 0);
+INSERT INTO `mydb`.`users` (`id`, `login`, `password`, `blocked`) VALUES (DEFAULT, 'login2@mail', 'password2', 0);
 
 COMMIT;
 
@@ -141,8 +165,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`accounts` (`card_number`, `name`, `amount`, `currency`, `user_id`, `blocked`) VALUES ('1234124312341234', 'name1', 1234, 'EUR', 1, 0);
-INSERT INTO `mydb`.`accounts` (`card_number`, `name`, `amount`, `currency`, `user_id`, `blocked`) VALUES ('4321432141234122', 'name2', 4321, 'EUR', 2, 0);
+INSERT INTO `mydb`.`accounts` (`id`, `card_number`, `name`, `amount`, `currency`, `user_id`, `blocked`) VALUES (DEFAULT, '1234124312341234', 'name1', 1234, 'EUR', 1, 0);
+INSERT INTO `mydb`.`accounts` (`id`, `card_number`, `name`, `amount`, `currency`, `user_id`, `blocked`) VALUES (DEFAULT, '4321432141234122', 'name2', 4321, 'EUR', 2, 0);
 
 COMMIT;
 
@@ -152,7 +176,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`payments` (`from_account`, `to_account`, `amount`, `status`, `time`) VALUES (2, 1, 123, 'SENT', NOW());
+INSERT INTO `mydb`.`payments` (`id`, `from_account`, `to_account`, `amount`, `status`, `time`) VALUES (DEFAULT, 2, 1, 123, 'SENT', NOW());
 
 COMMIT;
 
@@ -172,7 +196,17 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mydb`;
-INSERT INTO `mydb`.`templates` (`from_account`, `to_account`, `amount`) VALUES (1, 2, 34);
+INSERT INTO `mydb`.`templates` (`id`, `from_account`, `to_account`, `amount`) VALUES (DEFAULT, 1, 2, 34);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `mydb`.`unblock_request`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `mydb`;
+INSERT INTO `mydb`.`unblock_request` (`accounts_id`, `changed_by`, `considered`) VALUES (DEFAULT, 1, 0);
 
 COMMIT;
 

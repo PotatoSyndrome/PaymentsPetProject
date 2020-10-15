@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TemplateDAO {
 
-    GeneralDAO<Template> mapper;
+    private GeneralDAO<Template> mapper;
 
     public TemplateDAO() {
         mapper = new GeneralDAO<>(new TemplateMapper());
@@ -32,6 +32,15 @@ public class TemplateDAO {
         return getTemplatesForUser(user).size();
     }
 
+    public void insertTemplate(Template template) throws SQLException {
+        mapper.commitAll(new PreparedSqlQuery(
+                Queries.INSERT_NEW_TEMPLATE,
+                template.getFrom(),
+                template.getTo(),
+                template.getAmount()
+        ));
+    }
+
     private static class TemplateMapper implements EntityMapper<Template> {
 
         @Override
@@ -40,9 +49,11 @@ public class TemplateDAO {
 
             template.setId(resultSet.getLong("id"));
             template.setFrom(resultSet.getLong("from_account"));
+            template.setFromNumber(resultSet.getString("from_number"));
             template.setTo(resultSet.getLong("to_account"));
+            template.setToNumber(resultSet.getString("to_number"));
             template.setAmount(resultSet.getInt("amount"));
-
+            template.setCurrency(resultSet.getString("currency"));
             return template;
         }
     }

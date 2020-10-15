@@ -1,10 +1,7 @@
 package org.epam.training.kocherhin;
 
 import org.epam.training.kocherhin.DAO.*;
-import org.epam.training.kocherhin.Entity.Admin;
-import org.epam.training.kocherhin.Entity.Payment;
-import org.epam.training.kocherhin.Entity.Template;
-import org.epam.training.kocherhin.Entity.User;
+import org.epam.training.kocherhin.Entity.*;
 import org.epam.training.kocherhin.Web.Controller;
 
 import java.io.File;
@@ -30,7 +27,11 @@ public class Main {
         TemplateDAO templateDAO = new TemplateDAO();
 
         try {
-            System.out.println(userDAO.getByName("login1@mail"));
+            User u = userDAO.getByName("login1@mail");
+//            System.out.println(accountDAO.getByUser(u));
+//            System.out.println(accountDAO.getByUser(u));
+            System.out.println(paymentDAO.getByFromAccount(accountDAO.getByUser(u).get(0)));
+
 //            System.out.println(accountDAO.getByUser(userDAO.getByName("WORKS").getId()));
 //            System.out.println(paymentDAO.getByFromAccount(accountDAO.getByUser(userDAO.getByName("WORKS").getId()).get(0)));
 //            System.out.println(paymentDAO.getByDestinationAccount(accountDAO.getByUser(userDAO.getByName("WORKS").getId()).get(1)));

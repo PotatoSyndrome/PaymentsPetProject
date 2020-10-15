@@ -5,6 +5,7 @@ import org.epam.training.kocherhin.Web.ValidationUtil;
 
 import javax.servlet.http.Cookie;
 import java.sql.*;
+import java.util.List;
 
 public class UserDAO {
 
@@ -46,6 +47,29 @@ public class UserDAO {
         mapper.commitAll(new PreparedSqlQuery(
                 Queries.ADD_NEW_USER, user.getLogin(), user.getPassword(),
                 user.isBlocked() ? "1" : "0"));
+    }
+
+    public List<User> getAllWithPagination(long page, long recordsPerPage) throws SQLException {
+        return mapper.mapAll(new PreparedSqlQuery(
+                Queries.GET_ALL_USERS_WITH_PAGINATION,
+                (page - 1) * recordsPerPage,
+                recordsPerPage));
+    }
+
+    public void blockUser(Long id) throws SQLException {
+        mapper.commitAll(new PreparedSqlQuery(
+            Queries.UN_BLOCK_USER,
+                1,
+                id
+        ));
+    }
+
+    public void unblockUser(Long id) throws SQLException {
+        mapper.commitAll(new PreparedSqlQuery(
+                Queries.UN_BLOCK_USER,
+                0,
+                id
+        ));
     }
 
     private static class UserMapper implements EntityMapper<User> {

@@ -1,0 +1,79 @@
+<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
+<%@ taglib prefix='fmt' uri='http://java.sun.com/jsp/jstl/fmt' %>
+<%@ taglib prefix="au" uri="/WEB-INF/tld/Authorization.tld"  %>
+
+
+<%@ page import="org.epam.training.kocherhin.DAO.UserDAO" %>
+<%@ page import="java.sql.SQLException" %>
+
+<tr>
+<td id="header">
+
+<au:authorizeAdmin/>
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <a class="navbar-brand" href="controller?command=admin">main</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+            aria-controls="collapsibleNavId"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <c:if test = "${admin!=null}">
+                <li class="nav-item">
+                    <a class="nav-link" href="controller?command=requests">Requests </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="controller?command=users">Users </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="controller?command=payments">Payments </a>
+                </li>
+            </c:if>
+
+        </ul>
+
+        <c:choose>
+                        <c:when test = "${admin==null}">
+                            <div class="dropdown open">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                    <fmt:message key="header_jspf.navbar.sign"/>
+                                </button>
+
+                                <div class="dropdown-menu" aria-labelledby="triggerId">
+                                    <button class="dropdown-item" href="#">
+
+                                        <!-- sign in/up form   -->
+                                        <form action="controller" method="POST" role="form" class="form-horizontal">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" name="login" id="login" placeholder="pass"/>
+                                                <input type="password" class="form-control" name="password" id="password" aria-describedby="passwordDescribe" placeholder="pass"/>
+                                                <button type="submit" class="btn btn-primary " name="command" value="sign-admin">sign</button>
+                                                <button type="submit" class="btn btn-primary " name="command" value="add-admin">up</button>
+                                            </div>
+                                        </form>
+                                    </button>
+                                </div>
+                            </div>
+                            <br/>
+                        </c:when>
+                        <c:otherwise>
+                            <c:out value = "${admin.login}"/>
+                            <a name="Exit" id="Exit" class="btn btn-primary" href="controller?command=exit-admin" role="button"><fmt:message key="header_jspf.navbar.exit"/></a>
+                            <br/>
+                        </c:otherwise>
+        </c:choose>
+
+    </div>
+
+</nav>
+
+
+
+</td>
+</tr>

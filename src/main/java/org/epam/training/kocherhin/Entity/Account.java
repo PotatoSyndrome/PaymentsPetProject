@@ -68,5 +68,23 @@ public class Account extends Entity {
                 '}';
     }
 
-    public enum Currency {UAH, USD, EUR}
+    public enum Currency {
+        UAH(2_844),
+        USD(100),
+        EUR(86); // todo make this work
+
+        private int value;
+
+        Currency(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public static int convert(Currency from, Currency to,int amount) {
+            return amount * to.value / from.value;
+        }
+    }
 }
