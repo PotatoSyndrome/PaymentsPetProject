@@ -20,17 +20,17 @@ public class Main {
 //        String currentTime = sdf.format(dt);
 //        System.out.println(currentTime);
 
-        UserDAO userDAO = new UserDAO();
-        AccountDAO accountDAO = new AccountDAO();
-        PaymentDAO paymentDAO = new PaymentDAO();
-        AdminDAO adminDAO = new AdminDAO();
-        TemplateDAO templateDAO = new TemplateDAO();
+//        UserDAO userDAO = new UserDAO();
+//        AccountDAO accountDAO = new AccountDAO();
+//        PaymentDAO paymentDAO = new PaymentDAO();
+//        AdminDAO adminDAO = new AdminDAO();
+//        TemplateDAO templateDAO = new TemplateDAO();
 
-        try {
-            User u = userDAO.getByName("login1@mail");
+//        try {
+//            User u = userDAO.getByName("login1@mail");
 //            System.out.println(accountDAO.getByUser(u));
 //            System.out.println(accountDAO.getByUser(u));
-            System.out.println(paymentDAO.getByFromAccount(accountDAO.getByUser(u).get(0)));
+//            System.out.println(paymentDAO.getByFromAccount(accountDAO.getByUser(u).get(0)));
 
 //            System.out.println(accountDAO.getByUser(userDAO.getByName("WORKS").getId()));
 //            System.out.println(paymentDAO.getByFromAccount(accountDAO.getByUser(userDAO.getByName("WORKS").getId()).get(0)));
@@ -38,8 +38,8 @@ public class Main {
 //            System.out.println(adminDAO.getAdminByLogin("admin"));
 //            System.out.println(templateDAO.getTemplatesForUser(userDAO.getByName("WORKS")));
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 }

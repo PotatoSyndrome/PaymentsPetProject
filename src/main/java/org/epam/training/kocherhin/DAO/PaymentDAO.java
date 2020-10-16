@@ -34,9 +34,21 @@ public class PaymentDAO {
                 Long.toString(account.getId())));
     }
 
-    public List<Payment> getByFromUserWithPagination(User user, int page, int recordsPerPage) throws SQLException {
+    public List<Payment> getByFromUserWithPagination(User user, int page,
+            int recordsPerPage) throws SQLException {
         return mapper.mapAll(new PreparedSqlQuery(
                 Queries.GET_PAYMENTS_BY_FROM_USER_WITH_PAGINATION,
+                user.getId(),
+                (page - 1) * recordsPerPage,
+                recordsPerPage));
+    }
+
+    public List<Payment> getByFromUserWithSort(User user,String orderBy, boolean asc, int page,
+                                                     int recordsPerPage) throws SQLException {
+        return mapper.mapAll(new PreparedSqlQuery(
+                Queries.GET_PAYMENTS_WITH_SORTING_AND_PAGINATION.
+                        replace("*limiter*", (String) GeneralDAO.escapeForLike(orderBy)).
+                        replace("*descender*", asc ? "ASC" : "DESC"),
                 user.getId(),
                 (page - 1) * recordsPerPage,
                 recordsPerPage));

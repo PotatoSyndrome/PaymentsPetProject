@@ -23,11 +23,11 @@
         <table class="table">
                 <thead>
                 <tr>
-                    <th>Card number</th>
-                    <th>Amount</th>
-                    <th>Currency</th>
+                    <th><fmt:message key="admin.accounts.card_number"/></th>
+                    <th><fmt:message key="admin.accounts.amount"/></th>
+                    <th><fmt:message key="admin.accounts.currency"/></th>
 
-                    <th>Un/Block</th>
+                    <th><fmt:message key="admin.accounts.un_block"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,7 @@
                                     <div class="form-group">
 
                                         <input type="hidden" id="blockedAccountId" name="blockedAccountId" value="${account.id}"/>
-                                        <button type="submit" class="btn btn-primary " name="command" value="block-account">Block</button>
+                                        <button type="submit" class="btn btn-primary " name="command" value="block-account"><fmt:message key="admin.accounts.block"/></button>
 
                                     </div>
                                 </form>
@@ -53,7 +53,7 @@
                                     <div class="form-group">
 
                                         <input type="hidden" id="blockedAccountId" name="blockedAccountId" value="${account.id}"/>
-                                        <button type="submit" class="btn btn-primary " name="command" value="unblock-account">Unblock</button>
+                                        <button type="submit" class="btn btn-primary " name="command" value="unblock-account"><fmt:message key="admin.accounts.unblock"/></button>
                                     </div>
                                 </form>
                             </c:otherwise>

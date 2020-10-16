@@ -12,6 +12,19 @@ public class UserAccountsCommand extends Command {
     @Override
     public String processGet(HttpServletRequest request, HttpServletResponse response) {
 
+        if(request.getParameter("accountsSortBy") != null) {
+            request.getSession().setAttribute("accountsSortBy", request.getParameter("accountsSortBy"));
+        }
+        if (request.getParameter("ascAcc") != null) {
+            request.getSession().setAttribute("ascAcc", request.getParameter("ascAcc"));
+        }
+        if(request.getSession().getAttribute("accountsSortBy") == null) {
+            request.getSession().setAttribute("accountsSortBy", "id");
+        }
+        if(request.getSession().getAttribute("ascAcc") == null) {
+            request.getSession().setAttribute("ascAcc", "true");
+        }
+
         int page = 1;
         int accountsPerPage = 5;
         int numberOfRecords = 0;
@@ -19,8 +32,11 @@ public class UserAccountsCommand extends Command {
             page = Integer.parseInt(request.getParameter("page"));
         }
         try {
-            request.getSession().setAttribute("accountList", new AccountDAO().getByUserWithPagination(
-                    (User)request.getSession().getAttribute("user"), page, accountsPerPage));
+            request.getSession().setAttribute("accountList", new AccountDAO().getByUserWithSort(
+                    (User)request.getSession().getAttribute("user"),
+                    request.getSession().getAttribute("accountsSortBy").toString(),
+                    Boolean.parseBoolean((String) request.getSession().getAttribute("ascAcc")),
+                    page, accountsPerPage));
             numberOfRecords = new AccountDAO().getNumberOfAccounts((User)request.getSession().getAttribute("user"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -37,6 +53,13 @@ public class UserAccountsCommand extends Command {
 
     @Override
     public String processPost(HttpServletRequest request, HttpServletResponse response) {
-        return processGet(request, response);
+        if(request.getParameter("accountsSortBy") != null) {
+            request.getSession().setAttribute("accountsSortBy", request.getParameter("accountsSortBy"));
+        }
+        if (request.getParameter("ascAcc") != null) {
+            request.getSession().setAttribute("ascAcc", request.getParameter("ascAcc"));
+        }
+
+        return "controller?command=usersAccounts";
     }
 }

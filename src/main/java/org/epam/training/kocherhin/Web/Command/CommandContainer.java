@@ -29,7 +29,6 @@ public class CommandContainer {
         commands.put("user-block-account", new UserBlockAccountCommand());
         commands.put("user-unblock-account", new UserUnblockAccountCommand());
 
-
         commands.put("sign-admin", new SignInAdminCommand());
         commands.put("admin", new AdminMainPageCommand());
         commands.put("exit-admin", new ExitAdminCommand());

@@ -67,7 +67,10 @@ public class Payment extends Entity {
     }
 
     public String getStatus() {
-        return status.toString();
+        if (status != null) {
+            return status.toString();
+        }
+        return "";
     }
 
     public void setStatus(Status status) {
@@ -88,6 +91,38 @@ public class Payment extends Entity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Payment payment = (Payment) o;
+
+        if (getFrom() != payment.getFrom()) return false;
+        if (getTo() != payment.getTo()) return false;
+        if (getAmount() != payment.getAmount()) return false;
+        if (getFromNumber() != null ? !getFromNumber().equals(payment.getFromNumber()) : payment.getFromNumber() != null)
+            return false;
+        if (getToNumber() != null ? !getToNumber().equals(payment.getToNumber()) : payment.getToNumber() != null)
+            return false;
+        if (getCurrency() != payment.getCurrency()) return false;
+        if (getStatus() != payment.getStatus()) return false;
+        return getTime() != null ? getTime().equals(payment.getTime()) : payment.getTime() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getFrom() ^ (getFrom() >>> 32));
+        result = 31 * result + (getFromNumber() != null ? getFromNumber().hashCode() : 0);
+        result = 31 * result + (int) (getTo() ^ (getTo() >>> 32));
+        result = 31 * result + (getToNumber() != null ? getToNumber().hashCode() : 0);
+        result = 31 * result + getAmount();
+        result = 31 * result + (getCurrency() != null ? getCurrency().hashCode() : 0);
+        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+        result = 31 * result + (getTime() != null ? getTime().hashCode() : 0);
+        return result;
     }
 
     @Override

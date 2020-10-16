@@ -18,11 +18,68 @@
 		<%@ include file="/WEB-INF/jspf/header.jspf"%>
 		<%-- HEADER --%>
 
+    <div class="dropdown open">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+            <fmt:message key="accounts.sort"/>
+        </button>
 
+        <div class="dropdown-menu">
+            <form action="controller" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary " name="command" value="usersAccounts"><fmt:message key="accounts.sort.id_ascending"/></button>
+                    <input type="hidden" name="accountsSortBy" value="id">
+                    <input type="hidden" name="ascAcc" value="true">
+                </div>
+            </form>
+
+            <form action="controller" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary " name="command" value="usersAccounts"><fmt:message key="accounts.sort.id_descending"/></button>
+                    <input type="hidden" name="accountsSortBy" value="id">
+                    <input type="hidden" name="ascAcc" value="false">
+                </div>
+            </form>
+
+            <form action="controller" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary " name="command" value="usersAccounts"><fmt:message key="accounts.sort.name_ascending"/></button>
+                    <input type="hidden" name="accountsSortBy" value="name">
+                    <input type="hidden" name="ascAcc" value="true">
+                </div>
+            </form>
+
+            <form action="controller" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary " name="command" value="usersAccounts"><fmt:message key="accounts.sort.name_descending"/></button>
+                    <input type="hidden" name="accountsSortBy" value="name">
+                    <input type="hidden" name="ascAcc" value="false">
+                </div>
+            </form>
+
+            <form action="controller" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary " name="command" value="usersAccounts"><fmt:message key="accounts.sort.amount_ascending"/></button>
+                    <input type="hidden" name="accountsSortBy" value="amount">
+                    <input type="hidden" name="ascAcc" value="true">
+                </div>
+            </form>
+
+            <form action="controller" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary " name="command" value="usersAccounts"><fmt:message key="accounts.sort.amount_descending"/></button>
+                    <input type="hidden" name="accountsSortBy" value="amount">
+                    <input type="hidden" name="ascAcc" value="false">
+                </div>
+            </form>
+        </div>
+    </div>
 
     <table class="table">
         <thead>
         <tr>
+            <th>№</th>
             <th><fmt:message key="accounts.name"/></th>
             <th><fmt:message key="accounts.card_number"/></th>
             <th><fmt:message key="accounts.amount"/></th>
@@ -34,6 +91,7 @@
         <tbody>
         <c:forEach var = "account" items = "${accountList}">
             <tr>
+                <td>${account.id}</td>
                 <td>${account.name}</td>
                 <td>${account.cardNumber}</td>
                 <td>${account.amount}</td>

@@ -23,9 +23,9 @@
         <table class="table">
                 <thead>
                 <tr>
-                    <th>User name</th>
-                    <th>Accounts</th>
-                    <th>Un/Block</th>
+                    <th><fmt:message key="admin.users.user_name"/></th>
+                    <th><fmt:message key="admin.users.accounts"/></th>
+                    <th><fmt:message key="admin.users.un_block"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,7 +37,7 @@
                                 <div class="form-group">
 
                                     <input type="hidden" id="userAccountsId" name="userAccountsId" value="${user.id}"/>
-                                    <button type="submit" class="btn btn-primary " name="command" value="adminAccounts">Accounts</button>
+                                    <button type="submit" class="btn btn-primary " name="command" value="adminAccounts"><fmt:message key="admin.users.accounts"/></button>
 
                                 </div>
                             </form>
@@ -49,7 +49,7 @@
                                     <div class="form-group">
 
                                         <input type="hidden" id="blockedUserId" name="blockedUserId" value="${user.id}"/>
-                                        <button type="submit" class="btn btn-primary " name="command" value="block-user">Block</button>
+                                        <button type="submit" class="btn btn-primary " name="command" value="block-user"><fmt:message key="admin.users.block"/></button>
 
                                     </div>
                                 </form>
@@ -59,7 +59,7 @@
                                     <div class="form-group">
 
                                         <input type="hidden" id="blockedUserId" name="blockedUserId" value="${user.id}"/>
-                                        <button type="submit" class="btn btn-primary " name="command" value="unblock-user">Unblock</button>
+                                        <button type="submit" class="btn btn-primary " name="command" value="unblock-user"><fmt:message key="admin.users.unblock"/></button>
                                     </div>
                                 </form>
                             </c:otherwise>

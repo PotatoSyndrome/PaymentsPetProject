@@ -11,15 +11,33 @@ import java.sql.SQLException;
 public class UsersPaymentsCommand extends Command {
     @Override
     public String processGet(HttpServletRequest request, HttpServletResponse response) {
+
+        if(request.getParameter("paymentsSortBy") != null) {
+            request.getSession().setAttribute("paymentsSortBy", request.getParameter("paymentsSortBy"));
+        }
+        if (request.getParameter("ascPay") != null) {
+            request.getSession().setAttribute("ascPay", request.getParameter("ascPay"));
+        }
+        if(request.getSession().getAttribute("paymentsSortBy") == null) {
+            request.getSession().setAttribute("paymentsSortBy", "id");
+        }
+        if(request.getSession().getAttribute("ascPay") == null) {
+            request.getSession().setAttribute("ascPay", "true");
+        }
+
         int page = 1;
-        int accountsPerPage = 2;
+        int accountsPerPage = 10;
         int numberOfRecords = 0;
         if (request.getParameter("page") != null) {
             page = Integer.parseInt(request.getParameter("page"));
         }
         try {
-            request.getSession().setAttribute("paymentsList", new PaymentDAO().getByFromUserWithPagination(
-                    (User)request.getSession().getAttribute("user"),  page, accountsPerPage));
+            request.getSession().setAttribute("paymentsList", new PaymentDAO().getByFromUserWithSort(
+                    (User)request.getSession().getAttribute("user"),
+                    request.getSession().getAttribute("paymentsSortBy").toString(),
+                    Boolean.parseBoolean(request.getSession().getAttribute("ascPay").toString()),
+                    page,
+                    accountsPerPage));
             numberOfRecords = new PaymentDAO().getNumberOfPayments((User)request.getSession().getAttribute("user"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,6 +54,12 @@ public class UsersPaymentsCommand extends Command {
 
     @Override
     public String processPost(HttpServletRequest request, HttpServletResponse response) {
-        return processGet(request, response);
+        if(request.getParameter("paymentsSortBy") != null) {
+            request.getSession().setAttribute("paymentsSortBy", request.getParameter("paymentsSortBy"));
+        }
+        if (request.getParameter("ascPay") != null) {
+            request.getSession().setAttribute("ascPay", request.getParameter("ascPay"));
+        }
+        return "controller?command=usersPayments";
     }
 }

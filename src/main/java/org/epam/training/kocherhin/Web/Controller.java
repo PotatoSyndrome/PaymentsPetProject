@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class Controller extends HttpServlet {
 
     private CommandContainer commands;
+
+    private static Logger logger = Logger.getLogger(Controller.class.getName());
 
     @Override
     public void init() throws ServletException {

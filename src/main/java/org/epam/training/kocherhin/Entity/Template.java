@@ -57,6 +57,34 @@ public class Template extends Entity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Template template = (Template) o;
+
+        if (getFrom() != template.getFrom()) return false;
+        if (getTo() != template.getTo()) return false;
+        if (getAmount() != template.getAmount()) return false;
+        if (getFromNumber() != null ? !getFromNumber().equals(template.getFromNumber()) : template.getFromNumber() != null)
+            return false;
+        if (getToNumber() != null ? !getToNumber().equals(template.getToNumber()) : template.getToNumber() != null)
+            return false;
+        return getCurrency() == template.getCurrency();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getFrom() ^ (getFrom() >>> 32));
+        result = 31 * result + (getFromNumber() != null ? getFromNumber().hashCode() : 0);
+        result = 31 * result + (int) (getTo() ^ (getTo() >>> 32));
+        result = 31 * result + (getToNumber() != null ? getToNumber().hashCode() : 0);
+        result = 31 * result + getAmount();
+        result = 31 * result + (getCurrency() != null ? getCurrency().hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Template{" +
                 "from=" + from +

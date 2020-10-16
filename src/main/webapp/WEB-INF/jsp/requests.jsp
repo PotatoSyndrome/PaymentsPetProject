@@ -23,12 +23,12 @@
         <table class="table">
                 <thead>
                 <tr>
-                    <th>User name</th>
-                    <th>Card number</th>
-                    <th>Amount</th>
-                    <th>Currency</th>
-                    <th>Unblock</th>
-                    <th>Block</th>
+                    <th><fmt:message key="admin.requests.user_name"/></th>
+                    <th><fmt:message key="admin.requests.card_number"/></th>
+                    <th><fmt:message key="admin.requests.amount"/></th>
+                    <th><fmt:message key="admin.requests.currency"/></th>
+                    <th><fmt:message key="admin.requests.unblock"/></th>
+                    <th><fmt:message key="admin.requests.block"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@
                                 <div class="form-group">
 
                                     <input type="hidden" id="accountId" name="accountId" value="${request.account.id}"/>
-                                    <button type="submit"class="btn btn-primary " name="command" value="unblock">Unblock</button>
+                                    <button type="submit"class="btn btn-primary " name="command" value="unblock"><fmt:message key="admin.requests.unblock"/></button>
 
                                 </div>
                             </form>
@@ -54,7 +54,7 @@
                                 <div class="form-group">
 
                                     <input type="hidden" id="accountId" name="accountId" value="${request.account.id}"/>
-                                    <button type="submit"class="btn btn-primary " name="command" value="stay-blocked">Block</button>
+                                    <button type="submit"class="btn btn-primary " name="command" value="stay-blocked"><fmt:message key="admin.requests.block"/></button>
 
                                 </div>
                             </form>

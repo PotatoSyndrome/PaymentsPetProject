@@ -23,13 +23,13 @@
         <table class="table">
                 <thead>
                 <tr>
-                    <th>fr</th>
-                    <th>to</th>
-                    <th>am</th>
-                    <th>cur</th>
-                    <th>time</th>
-                    <th>decline</th>
-                    <th>confirm</th>
+                    <th><fmt:message key="admin.payments.from"/></th>
+                    <th><fmt:message key="admin.payments.to"/></th>
+                    <th><fmt:message key="admin.payments.amount"/></th>
+                    <th><fmt:message key="admin.payments.currency"/></th>
+                    <th><fmt:message key="admin.payments.time"/></th>
+                    <th><fmt:message key="admin.payments.decline"/></th>
+                    <th><fmt:message key="admin.payments.confirm"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,7 +47,7 @@
                                 <div class="form-group">
 
                                     <input type="hidden" id="paymentId" name="paymentId" value="${payment.id}"/>
-                                    <button type="submit"class="btn btn-primary " name="command" value="decline-payment">Decline</button>
+                                    <button type="submit"class="btn btn-primary " name="command" value="decline-payment"><fmt:message key="admin.payments.decline"/></button>
 
                                 </div>
                             </form>
@@ -57,7 +57,7 @@
                                 <div class="form-group">
 
                                     <input type="hidden" id="paymentId" name="paymentId" value="${payment.id}"/>
-                                    <button type="submit"class="btn btn-primary " name="command" value="perform-payment">Conf</button>
+                                    <button type="submit"class="btn btn-primary " name="command" value="perform-payment"><fmt:message key="admin.payments.confirm"/></button>
 
                                 </div>
                             </form>
@@ -71,6 +71,8 @@
                 <%-- PAGINATION --%>
                 <%@ include file="/WEB-INF/jspf/pagination.jspf"%>
                 <%-- PAGINATION --%>
+
+
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -12,7 +12,7 @@
 <au:authorizeAdmin/>
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
-    <a class="navbar-brand" href="controller?command=admin">main</a>
+    <a class="navbar-brand" href="controller?command=admin"><fmt:message key="admin.header.main"/></a>
     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId"
             aria-controls="collapsibleNavId"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -22,15 +22,35 @@
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <c:if test = "${admin!=null}">
                 <li class="nav-item">
-                    <a class="nav-link" href="controller?command=requests">Requests </a>
+                    <a class="nav-link" href="controller?command=requests"><fmt:message key="admin.header.requests"/> </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="controller?command=users">Users </a>
+                    <a class="nav-link" href="controller?command=users"><fmt:message key="admin.header.users"/> </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="controller?command=payments">Payments </a>
+                    <a class="nav-link" href="controller?command=payments"><fmt:message key="admin.header.payments"/> </a>
+                </li>
+
+                <li class="nav-item">
+                    <div class="dropdown open">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                            <fmt:message key="footer_jspf.language"/>
+                        </button>
+
+                        <div class="dropdown-menu">
+                            <form action="controller" method="POST" role="form" class="form-horizontal">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary " name="newLocale" value="uk-UA"><fmt:message key="footer_jspf.language.ukrainian"/></button>
+                                    <button type="submit" class="btn btn-primary " name="newLocale" value="en-EN"><fmt:message key="footer_jspf.language.english"/></button>
+                                    <input type="hidden" name="command" value="change-locale">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </li>
             </c:if>
 
@@ -42,7 +62,7 @@
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
                                         aria-haspopup="true"
                                         aria-expanded="false">
-                                    <fmt:message key="header_jspf.navbar.sign"/>
+                                    <fmt:message key="admin.header.sign_in_up"/>
                                 </button>
 
                                 <div class="dropdown-menu" aria-labelledby="triggerId">
@@ -51,10 +71,10 @@
                                         <!-- sign in/up form   -->
                                         <form action="controller" method="POST" role="form" class="form-horizontal">
                                             <div class="form-group">
-                                                <input type="text" class="form-control" name="login" id="login" placeholder="pass"/>
-                                                <input type="password" class="form-control" name="password" id="password" aria-describedby="passwordDescribe" placeholder="pass"/>
-                                                <button type="submit" class="btn btn-primary " name="command" value="sign-admin">sign</button>
-                                                <button type="submit" class="btn btn-primary " name="command" value="add-admin">up</button>
+                                                <input type="text" class="form-control" name="login" id="login" placeholder="<fmt:message key="admin.header.login"/>" />
+                                                <input type="password" class="form-control" name="password" id="password" aria-describedby="passwordDescribe" placeholder="<fmt:message key="admin.header.password"/>" />
+                                                <button type="submit" class="btn btn-primary " name="command" value="sign-admin"><fmt:message key="admin.header.sign_in"/></button>
+                                                <button type="submit" class="btn btn-primary " name="command" value="add-admin"><fmt:message key="admin.header.sign_up"/></button>
                                             </div>
                                         </form>
                                     </button>
@@ -73,7 +93,15 @@
 
 </nav>
 
-
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 </td>
 </tr>

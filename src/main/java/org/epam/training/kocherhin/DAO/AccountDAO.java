@@ -28,6 +28,16 @@ public class AccountDAO {
                 accountsOnPage));
     }
 
+    public List<Account> getByUserWithSort(User user, String orderBy, boolean asc, int page, int accountsOnPage) throws SQLException {
+        return mapper.mapAll(new PreparedSqlQuery(
+                Queries.GET_ACCOUNTS_BY_USER_WITH_SORT.
+                        replace("*limiter*", (String) GeneralDAO.escapeForLike(orderBy)).
+                        replace("*descender*", asc ? "ASC" : "DESC"),
+                Long.toString(user.getId()),
+                (page - 1) * accountsOnPage,
+                accountsOnPage));
+    }
+
     public List<Account> getByUserIdWithPagination(long userId, int page, int accountsOnPage) throws SQLException {
         return mapper.mapAll(new PreparedSqlQuery(
                 Queries.GET_ACCOUNTS_BY_USER_WITH_PAGINATION,

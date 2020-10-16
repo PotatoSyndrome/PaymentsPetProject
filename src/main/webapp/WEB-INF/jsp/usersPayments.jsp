@@ -19,11 +19,52 @@
 		<%@ include file="/WEB-INF/jspf/header.jspf"%>
 		<%-- HEADER --%>
 
+    <div class="dropdown open">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false">
+            <fmt:message key="payments.sort"/>
+        </button>
 
+        <div class="dropdown-menu">
+            <form action="controller" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary " name="command" value="usersPayments"><fmt:message key="payments.sort.number_ascending"/></button>
+                    <input type="hidden" name="paymentsSortBy" value="id">
+                    <input type="hidden" name="ascPay" value="true">
+                </div>
+            </form>
+
+            <form action="controller" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary " name="command" value="usersPayments"><fmt:message key="payments.sort.number_descending"/></button>
+                    <input type="hidden" name="paymentsSortBy" value="id">
+                    <input type="hidden" name="ascPay" value="false">
+                </div>
+            </form>
+
+            <form action="controller" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary " name="command" value="usersPayments"><fmt:message key="payments.sort.time_ascending"/></button>
+                    <input type="hidden" name="paymentsSortBy" value="time">
+                    <input type="hidden" name="ascPay" value="true">
+                </div>
+            </form>
+
+            <form action="controller" method="POST" role="form" class="form-horizontal">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary " name="command" value="usersPayments"><fmt:message key="payments.sort.time_descending"/></button>
+                    <input type="hidden" name="paymentsSortBy" value="time">
+                    <input type="hidden" name="ascPay" value="false">
+                </div>
+            </form>
+        </div>
+    </div>
 
     <table class="table">
         <thead>
         <tr>
+            <th>№</th>
             <th><fmt:message key="payments.from"/></th>
             <th><fmt:message key="payments.to"/></th>
             <th><fmt:message key="payments.amount"/></th>
@@ -35,6 +76,7 @@
         <tbody>
         <c:forEach var = "payment" items = "${paymentsList}">
             <tr>
+                <td>${payment.id}</td>
                 <td>${payment.fromNumber}</td>
                 <td>${payment.toNumber}</td>
                 <td>${payment.amount}</td>

@@ -17,6 +17,9 @@ public final class Queries {
     public static final String GET_ACCOUNTS_BY_USER_WITH_PAGINATION = "SELECT * FROM accounts\n" +
             "WHERE user_id = ? LIMIT ?, ?";
 
+    public static final String GET_ACCOUNTS_BY_USER_WITH_SORT = "SELECT * FROM accounts\n" +
+            "WHERE user_id = ? ORDER BY *limiter* *descender* LIMIT ?, ?";
+
     public static final String GET_ACCOUNT_BY_ID = "SELECT * FROM mydb.accounts\n" +
             "WHERE id = ?";
 
@@ -67,6 +70,14 @@ public final class Queries {
             "(SELECT id FROM accounts WHERE user_id = ?)\n" +
             " LIMIT ?, ?";
 
+    public static final String GET_PAYMENTS_WITH_SORTING_AND_PAGINATION = "SELECT p.id, p.from_account, fr.card_number AS from_number,\n" +
+            " p.to_account, t.card_number AS to_number, p.amount, fr.currency, p.status, p.time FROM mydb.payments p\n" +
+            "JOIN accounts as fr ON from_account = fr.id\n" +
+            "JOIN accounts as t ON to_account = t.id\n" +
+            "WHERE p.from_account IN\n" +
+            "(SELECT id FROM accounts WHERE user_id = ?)\n" +
+            "ORDER BY *limiter* *descender*\n" +
+            " LIMIT ?, ?";
 
     public static final String INSERT_PAYMENT = "INSERT INTO payments(from_account, to_account, amount, status, time) \n" +
             "VALUES (?, ?, ?, 'READY', now())";

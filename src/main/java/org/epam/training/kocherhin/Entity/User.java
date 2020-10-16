@@ -31,6 +31,26 @@ public class User extends Entity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (isBlocked() != user.isBlocked()) return false;
+        if (getLogin() != null ? !getLogin().equals(user.getLogin()) : user.getLogin() != null) return false;
+        return getPassword() != null ? getPassword().equals(user.getPassword()) : user.getPassword() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getLogin() != null ? getLogin().hashCode() : 0;
+        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
+        result = 31 * result + (isBlocked() ? 1 : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "login='" + login + '\'' +

@@ -66,7 +66,7 @@ public class ConnectionProvider {
         } catch (UnsupportedEncodingException e) {
             fullPath = path;
         }
-        String[] pathArr = fullPath.split("/(?:WEB-INF|target)/classes/");
+        String[] pathArr = fullPath.split("/(?:WEB-INF|target)");
         fullPath = pathArr[0];
 
         return fullPath;

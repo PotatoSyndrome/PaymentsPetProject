@@ -57,6 +57,33 @@ public class Account extends Entity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Account account = (Account) o;
+
+        if (getAmount() != account.getAmount()) return false;
+        if (getUserId() != account.getUserId()) return false;
+        if (isBlocked() != account.isBlocked()) return false;
+        if (getCardNumber() != null ? !getCardNumber().equals(account.getCardNumber()) : account.getCardNumber() != null)
+            return false;
+        if (getName() != null ? !getName().equals(account.getName()) : account.getName() != null) return false;
+        return getCurrency() == account.getCurrency();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getCardNumber() != null ? getCardNumber().hashCode() : 0;
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + getAmount();
+        result = 31 * result + (getCurrency() != null ? getCurrency().hashCode() : 0);
+        result = 31 * result + (int) (getUserId() ^ (getUserId() >>> 32));
+        result = 31 * result + (isBlocked() ? 1 : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Account{" +
                 "cardNumber='" + cardNumber + '\'' +
@@ -84,7 +111,7 @@ public class Account extends Entity {
         }
 
         public static int convert(Currency from, Currency to,int amount) {
-            return amount * to.value / from.value;
+            return amount * to.getValue() / from.getValue();
         }
     }
 }
