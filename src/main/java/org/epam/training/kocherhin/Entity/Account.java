@@ -98,7 +98,7 @@ public class Account extends Entity {
     public enum Currency {
         UAH(2_844),
         USD(100),
-        EUR(86); // todo make this work
+        EUR(86);
 
         private int value;
 

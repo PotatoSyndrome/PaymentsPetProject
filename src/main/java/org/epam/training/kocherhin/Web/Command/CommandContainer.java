@@ -44,7 +44,7 @@ public class CommandContainer {
         commands.put("adminAccounts", new AdminAccountsCommand());
         commands.put("block-account", new BlockAccountCommand());
         commands.put("unblock-account", new UnblockAccountCommand());
-        // TODO put commands
+
     }
 
     public Command getCommand(String name) {

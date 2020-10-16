@@ -38,7 +38,7 @@ public class AddAccountCommand extends Command {
             System.out.println(account.getCurrency());
             request.getSession().setAttribute("message", "Oops! Something went wrong (validation of " +
                     "new account failed)");
-            return "message.jsp"; //todo
+            return "message.jsp";
         }
 
         try {

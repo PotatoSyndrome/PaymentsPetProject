@@ -49,7 +49,7 @@ public class UsersPaymentsCommand extends Command {
         request.getSession().setAttribute("numberOfPages", numberOfPages);
         request.getSession().setAttribute("page", page);
         request.getSession().setAttribute("currentCommand", "usersPayments");
-        return "/WEB-INF/jsp/usersPayments.jsp"; //todo
+        return "/WEB-INF/jsp/usersPayments.jsp";
     }
 
     @Override

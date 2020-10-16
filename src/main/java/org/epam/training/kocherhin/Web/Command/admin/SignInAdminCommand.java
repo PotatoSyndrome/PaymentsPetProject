@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class SignInAdminCommand extends Command {
     @Override
     public String processGet(HttpServletRequest request, HttpServletResponse response) {
-        return "controller?command=admin"; //todo to admin
+        return "controller?command=admin";
     }
 
     @Override

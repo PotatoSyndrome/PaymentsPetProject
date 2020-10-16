@@ -8,8 +8,9 @@ public final class ValidationUtil {
     private ValidationUtil() {}
 
     public static boolean validateEmail(String email) {
-        return true; //todo
+        return email.matches("\\w+@\\w+");
     }
+
     public static boolean validatePassword(String password) {
         if (password.length() < 8) {
             return false;

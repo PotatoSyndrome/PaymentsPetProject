@@ -18,7 +18,7 @@ public class SignInCommand extends Command {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "main.jsp"; //todo
+        return "main.jsp";
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SignInCommand extends Command {
         try {
             User dbUser = new UserDAO().getByName(user.getLogin());
             if (dbUser == null) {
-                return "main.jsp"; //todo
+                return "main.jsp";
             }
             if (!ValidationUtil.validateUser(dbUser, user.getPassword())) {
                 System.out.println("NOT VALIDATED");
@@ -39,7 +39,7 @@ public class SignInCommand extends Command {
                 System.out.println("BUT WAS" + user.getPassword());
                 request.getSession().setAttribute("message", "Oops! Something went wrong (validation of " +
                         "user failed)");
-                return "message.jsp"; //todo
+                return "message.jsp";
             } else {
                 user = dbUser;
             }
@@ -51,6 +51,6 @@ public class SignInCommand extends Command {
         response.addCookie(new Cookie("pw", user.getPassword()));
 
         request.getSession().setAttribute("user", user);
-        return "main.jsp"; //todo
+        return "main.jsp";
     }
 }

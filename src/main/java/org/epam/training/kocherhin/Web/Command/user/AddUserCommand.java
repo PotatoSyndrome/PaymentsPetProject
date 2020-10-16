@@ -14,7 +14,7 @@ public class AddUserCommand extends Command {
     @Override
     public String processGet(HttpServletRequest request, HttpServletResponse response) {
         return "main.jsp";
-    } //todo
+    }
 
     @Override
     public String processPost(HttpServletRequest request, HttpServletResponse response) {
@@ -29,7 +29,7 @@ public class AddUserCommand extends Command {
                 !ValidationUtil.validatePassword(user.getPassword())) {
             request.getSession().setAttribute("message", "Oops! Something went wrong (validation of " +
                     "new user failed)");
-            return "message.jsp"; //todo
+            return "message.jsp";
         }
 
         try {
@@ -40,6 +40,6 @@ public class AddUserCommand extends Command {
 
         response.addCookie(new Cookie("lg", user.getLogin())); //todo change cookie value to smth safer
         response.addCookie(new Cookie("pw", user.getPassword()));
-        return  "main.jsp"; //todo add actual return
+        return  "main.jsp";
     }
 }

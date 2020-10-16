@@ -19,7 +19,7 @@ public class AllUsersCommand extends Command {
             page = Integer.parseInt(request.getParameter("page"));
         }
         try {
-            request.getSession().setAttribute("usersList", new UserDAO().getAllWithPagination(page, recordsPerPage));//TODO
+            request.getSession().setAttribute("usersList", new UserDAO().getAllWithPagination(page, recordsPerPage));
         } catch (SQLException e) {
             e.printStackTrace();
             request.getSession().setAttribute("message", "Oops! Something went wrong (can`t get users list)");
